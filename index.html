@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday jaaanuuuuuu! 💖</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka, Dancing Script, Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            romantic: {
+              50: '#fff0f5',
+              100: '#ffe4e1',
+              200: '#ffccd5',
+              300: '#ffb3c1',
+              400: '#ff758f',
+              500: '#ff4d6d',
+              600: '#c9184a',
+              700: '#a4133c',
+              800: '#800f2f',
+              900: '#590d22',
+            }
+          },
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            dancing: ['Dancing Script', 'cursive'],
+            nunito: ['Nunito', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 50%, #ffccd5 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Floating Background Particle Canvas */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Custom Pulsing Animation */
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.12); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.12); }
+      70% { transform: scale(1); }
+    }
+    .pulse-heart {
+      animation: heartbeat 1.8s infinite ease-in-out;
+    }
+
+    /* Glowing Effect */
+    .glow-effect {
+      box-shadow: 0 0 25px rgba(255, 77, 109, 0.55);
+    }
+
+    /* Glassmorphic card styling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid rgba(255, 255, 255, 0.7);
+    }
+
+    /* Shimmer effect for gift box */
+    @keyframes giftBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+    .animate-gift {
+      animation: giftBounce 2.5s infinite ease-in-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #ffe4e1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff758f;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="relative text-gray-800 antialiased selection:bg-romantic-300 selection:text-romantic-900 pb-12">
+
+  <!-- Background Animated Hearts Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Sound Toggle Control -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="musicToggleBtn" onclick="toggleAudio()" class="glass-card flex items-center gap-2 px-4 py-2 rounded-full shadow-lg text-romantic-600 hover:bg-romantic-500 hover:text-white transition-all duration-300 font-bold text-sm">
+      <i id="musicIcon" class="fa-solid fa-music text-lg"></i>
+      <span id="musicText"></span>
+    </button>
+  </div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-4 pt-10">
+
+    <!-- Header / Banner Section -->
+    <header class="text-center mb-8">
+      <div class="inline-block glass-card px-6 py-2 rounded-full mb-4 shadow-md border border-romantic-200">
+        <span class="text-romantic-600 font-fredoka font-semibold tracking-wide text-sm md:text-base">
+          ✨ Special Birthday Countdown mere cutuu ke liyeee ✨
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-fredoka font-bold text-romantic-600 drop-shadow-sm mb-3">
+        10 Days Left tere Birthday liyeee 🎂💖
+      </h1>
+      <p class="font-dancing text-2xl md:text-3xl text-romantic-700 font-bold">
+        Counting down every single moment for you, meraaa shonuuu! ❤️
+      </p>
+    </header>
+
+    <!-- Countdown Timer Boxes -->
+    <div class="grid grid-cols-4 gap-3 md:gap-4 max-w-xl mx-auto mb-12 text-center">
+      <div class="glass-card p-4 rounded-2xl shadow-xl border-2 border-romantic-200">
+        <span id="timer-days" class="block text-3xl md:text-5xl font-fredoka font-bold text-romantic-600">10</span>
+        <span class="text-xs md:text-sm font-semibold text-gray-600 uppercase tracking-wider">Days</span>
+      </div>
+      <div class="glass-card p-4 rounded-2xl shadow-xl border-2 border-romantic-200">
+        <span id="timer-hours" class="block text-3xl md:text-5xl font-fredoka font-bold text-romantic-500">23</span>
+        <span class="text-xs md:text-sm font-semibold text-gray-600 uppercase tracking-wider">Hours</span>
+      </div>
+      <div class="glass-card p-4 rounded-2xl shadow-xl border-2 border-romantic-200">
+        <span id="timer-minutes" class="block text-3xl md:text-5xl font-fredoka font-bold text-romantic-500">59</span>
+        <span class="text-xs md:text-sm font-semibold text-gray-600 uppercase tracking-wider">Mins</span>
+      </div>
+      <div class="glass-card p-4 rounded-2xl shadow-xl border-2 border-romantic-200">
+        <span id="timer-seconds" class="block text-3xl md:text-5xl font-fredoka font-bold text-romantic-600">59</span>
+        <span class="text-xs md:text-sm font-semibold text-gray-600 uppercase tracking-wider">Secs</span>
+      </div>
+    </div>
+
+    <!-- SINGLE GIFT CARD SECTION -->
+    <section class="max-w-md mx-auto mb-12">
+      <div class="glass-card p-8 rounded-3xl shadow-2xl text-center border-4 border-romantic-200 relative overflow-hidden transform hover:scale-102 transition-all">
+        
+        <div class="text-7xl mb-4 animate-gift">🎁</div>
+        
+        <h2 class="font-fredoka text-2xl md:text-3xl font-bold text-romantic-600 mb-2">
+        I LOVEEE YOUUUU JANUUUU
+        </h2>
+        <p class="text-gray-600 font-semibold mb-6">
+         jaanuu you are the best thing which i recived from allah mai bhouttt jydaa blessed aur lucky hu teko paane ke liye like tu hamehsa meri har wish puri krtaa n inshaallah mai koshish karugii teri wish puri krne ki kyuki mekoo hamehsa mere janu ko smile krte huee dekhnaa haii 
+        </p>
+
+        <!-- Tap to Open Button -->
+        <button onclick="openGiftModal()" class="w-full bg-gradient-to-r from-romantic-400 via-romantic-500 to-romantic-600 hover:from-romantic-500 hover:to-romantic-700 text-white font-fredoka font-bold
